@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans      http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd             http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd    ">
+    <!-- define web service using interface and EndPoint -->
+    <!-- <cxf:cxfEndpoint address="http://localhost:9292/cxf/order"
+        id="demoOrderEndpoint" serviceClass="com.demo.order.DemoOrderService"/>
+    
+    
+    
+    <bean class="com.demo.order.OrderProcessor" id="orderProcessor"/>
+    <bean class="com.demo.order.ObjectToXml" id="ObjectToXml"/> -->
+    <bean class="com.demo.order.MyRoute" id="myRoutes"/>
+    <camelContext id="_camelContext1" xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="myRoutes"/>
+        <!-- <route id="_route1" ref="sample">
+            <from id="_from1" uri="cxf:beanId:http://41.215.135.137/SimbaWS/EACServicesPort?wsdl"/>
+        </route> -->
+        <!-- <route id="cxf">
+            route starts from the cxf webservice in POJO mode
+            <from id="demoOrderEndpointListener" uri="cxf:bean:demoOrderEndpoint"/>
+            <recipientList id="dispatchToCorrectRoute">
+                <simple>direct:${header.operationName}</simple>
+            </recipientList>
+        </route>
+        <route id="Order">
+            <from id="statusIncidentStarter" uri="direct:provideOrder"/>
+            <log id="logStatusIncident" message="Generate xml Call"/>
+            <to id="_to1" uri="ftp://tomcat@110.92.122.186:21/export/home/tomcat/temp/?password=secret"/>
+            <process id="_process1" ref="ObjectToXml"/>
+            <log id="logStatusIncident" message="OrderDetails Call"/>
+            <process id="_process1" ref="orderProcessor"/>
+        </route> -->
+        <!-- <route id="ftp">
+            <from id="from_ftp" uri="ftp://tomcat@110.92.122.186:21/export/home/tomcat/temp/Sample/?delay=10000&amp;password=Sparky@2016!p'!"/>
+            <log id="_log1" message="The message contains ${body}"/>
+            <to id="_to1" uri="file:c:/work/ftp"/>
+        </route> -->
+    </camelContext>
+</beans>

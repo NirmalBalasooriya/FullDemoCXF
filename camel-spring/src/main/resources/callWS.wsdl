@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://sample.ws.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ServiceInterfaceWS" targetNamespace="http://sample.ws.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://sample.ws.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sample.ws.com/">
+  <xs:complexType name="inputOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="number" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="outputResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="output" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getWSoutput" type="getWSoutput"/>
+  <xs:complexType name="getWSoutput">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="arg0" type="inputOrder"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getWSoutputResponse" type="getWSoutputResponse"/>
+  <xs:complexType name="getWSoutputResponse">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="return" type="outputResult"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getWSoutput">
+    <wsdl:part element="tns:getWSoutput" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getWSoutputResponse">
+    <wsdl:part element="tns:getWSoutputResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ServiceInterfaceWSPortType">
+    <wsdl:operation name="getWSoutput">
+      <wsdl:input message="tns:getWSoutput" name="getWSoutput">
+    </wsdl:input>
+      <wsdl:output message="tns:getWSoutputResponse" name="getWSoutputResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceInterfaceWSSoapBinding" type="tns:ServiceInterfaceWSPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getWSoutput">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getWSoutput">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getWSoutputResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceInterfaceWS">
+    <wsdl:port binding="tns:ServiceInterfaceWSSoapBinding" name="ServiceInterfaceWSPort">
+      <soap:address location="http://localhost:9292/cxf/callWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
